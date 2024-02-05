@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 
-	app = NewApplication(db)
+	app = NewApplication(db, "5e496d654290c30e962c5f1c81bdd20d69bc1e0c4a13c9cb6beb6db81e5e43bd")
 
 	result := m.Run()
 

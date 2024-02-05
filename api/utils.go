@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/NikhilSharmaWe/market/models"
@@ -27,7 +26,7 @@ type Application struct {
 	store.AdminsStore
 }
 
-func NewApplication(db *gorm.DB) *Application {
+func NewApplication(db *gorm.DB, sessionSecretKey string) *Application {
 	userStore := store.NewUsersStore(db)
 	inventoryStore := store.NewInventoryStore(db)
 	orderStore := store.NewOrdersStore(db)
@@ -40,7 +39,7 @@ func NewApplication(db *gorm.DB) *Application {
 	orderService := NewOrderService(orderStore, orderPerProductStore, productStore, inventoryStore)
 
 	return &Application{
-		CookieStore:      sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET_KEY"))),
+		CookieStore:      sessions.NewCookieStore([]byte(sessionSecretKey)),
 		UsersStore:       userStore,
 		InventoryStore:   inventoryStore,
 		OrderStore:       orderStore,

@@ -19,7 +19,7 @@ func init() {
 func main() {
 	db := setupDB()
 
-	app := api.NewApplication(db)
+	app := api.NewApplication(db, os.Getenv("SESSION_SECRET_KEY"))
 
 	mux := app.Router()
 
